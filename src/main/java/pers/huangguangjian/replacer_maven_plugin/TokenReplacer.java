@@ -1,5 +1,6 @@
 package pers.huangguangjian.replacer_maven_plugin;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import pers.huangguangjian.replacer_maven_plugin.utils.PatternFlagUtils;
 
 import java.util.regex.Pattern;
@@ -26,15 +27,15 @@ public class TokenReplacer {
         } else {
             compiledPattern = Pattern.compile(token, flags);
         }
-
-        return compiledPattern.matcher(content).replaceAll(defaultString(value));
+        value= StringEscapeUtils.unescapeJava(defaultString(value));
+        return compiledPattern.matcher(content).replaceAll(value);
     }
 
     private String replaceNonRegex(String content, String token, String value) {
         if (isEmpty(content)) {
             return content;
         }
-
-        return content.replace(token, defaultString(value));
+        value= StringEscapeUtils.unescapeJava(defaultString(value));
+        return content.replace(token, value);
     }
 }
