@@ -1,7 +1,11 @@
 package pers.huangguangjian.replacer_maven_plugin;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.commons.lang.StringUtils.defaultString;
 
 public class Replacement {
 
@@ -44,6 +48,11 @@ public class Replacement {
      */
     private boolean regex = false;
 
+    /**
+     * value 是否转义
+     */
+    private boolean valueUnescapeJava=false;
+
     public Replacement() {
 
     }
@@ -79,6 +88,9 @@ public class Replacement {
     }
 
     public String getValue() {
+        if(isValueUnescapeJava()){
+           return StringEscapeUtils.unescapeJava(this.value);
+        }
         return this.value;
     }
 
@@ -109,6 +121,14 @@ public class Replacement {
 
     public void setRegex(boolean regex) {
         this.regex = regex;
+    }
+
+    public boolean isValueUnescapeJava() {
+        return valueUnescapeJava;
+    }
+
+    public void setValueUnescapeJava(boolean valueUnescapeJava) {
+        this.valueUnescapeJava = valueUnescapeJava;
     }
 
     @Override
