@@ -38,10 +38,6 @@ public class Replacement {
      */
     private List<String> regexFlags = new ArrayList<String>();
 
-    /**
-     * 标准JAVA正则匹配模式value 值
-     */
-    private int regexFlagValue;
 
     /**
      * 是否正则
@@ -52,6 +48,12 @@ public class Replacement {
      * value 是否转义
      */
     private boolean valueUnescapeJava=false;
+
+    /**
+     * token 是否转义
+     */
+    private boolean tokenUnescapeJava=false;
+
 
     public Replacement() {
 
@@ -74,6 +76,9 @@ public class Replacement {
     }
 
     public String getToken() {
+        if(isTokenUnescapeJava()){
+            return StringEscapeUtils.unescapeJava(this.token);
+        }
         return this.token;
     }
 
@@ -107,14 +112,6 @@ public class Replacement {
         this.regexFlags = regexFlags;
     }
 
-    public int getRegexFlagValue() {
-        return regexFlagValue;
-    }
-
-    public void setRegexFlagValue(int regexFlagValue) {
-        this.regexFlagValue = regexFlagValue;
-    }
-
     public boolean isRegex() {
         return regex;
     }
@@ -131,14 +128,23 @@ public class Replacement {
         this.valueUnescapeJava = valueUnescapeJava;
     }
 
+    public boolean isTokenUnescapeJava() {
+        return tokenUnescapeJava;
+    }
+
+    public void setTokenUnescapeJava(boolean tokenUnescapeJava) {
+        this.tokenUnescapeJava = tokenUnescapeJava;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Replacement{");
         sb.append("token='").append(token).append('\'');
         sb.append(", value='").append(value).append('\'');
         sb.append(", regexFlags=").append(regexFlags);
-        sb.append(", regexFlagValue=").append(regexFlagValue);
         sb.append(", regex=").append(regex);
+        sb.append(", valueUnescapeJava=").append(valueUnescapeJava);
+        sb.append(", tokenUnescapeJava=").append(tokenUnescapeJava);
         sb.append('}');
         return sb.toString();
     }

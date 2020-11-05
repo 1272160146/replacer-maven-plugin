@@ -14,7 +14,7 @@ public class TokenReplacer {
 
     public String replace(String content, Replacement replacement) {
         if (replacement.isRegex()) {
-            return replaceRegex(content, replacement.getToken(), replacement.getValue(), replacement.getRegexFlagValue());
+            return replaceRegex(content, replacement.getToken(), replacement.getValue(), PatternFlagUtils.buildFlags(replacement.getRegexFlags()));
         }
         return replaceNonRegex(content, replacement.getToken(), replacement.getValue());
     }
